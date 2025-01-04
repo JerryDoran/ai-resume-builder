@@ -1,8 +1,9 @@
+import { EditorFormProps } from "@/lib/types";
 import React from "react";
 
 export const steps: {
   title: string;
-  component: React.ComponentType;
+  component: React.ComponentType<EditorFormProps>;
   key: string;
 }[] = [
   {
@@ -15,5 +16,4 @@ export const steps: {
     component: React.lazy(() => import("./_components/personal-info-form")),
     key: "personal-info",
   },
- 
 ];

@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const optionalString = z.string().trim().optional().or(z.literal(""));
 
+// General Info Schema
 export const generalInfoSchema = z.object({
   title: optionalString,
   description: optionalString,
@@ -9,6 +10,7 @@ export const generalInfoSchema = z.object({
 
 export type GeneralInfoValues = z.infer<typeof generalInfoSchema>;
 
+// Personal Info Schema
 export const personalInfoSchema = z.object({
   photo: z
     .custom<File | undefined>()
@@ -32,9 +34,28 @@ export const personalInfoSchema = z.object({
 
 export type PersonalInfoValues = z.infer<typeof personalInfoSchema>;
 
+// Work Experience Schema
+export const workExperienceSchema = z.object({
+  workExperiences: z
+    .array(
+      z.object({
+        position: optionalString,
+        company: optionalString,
+        startDate: optionalString,
+        endDate: optionalString,
+        description: optionalString,
+      }),
+    )
+    .optional(),
+});
+
+export type WorkExperienceValues = z.infer<typeof workExperienceSchema>;
+
+// Resume Schema
 export const resumeSchema = z.object({
   ...generalInfoSchema.shape,
   ...personalInfoSchema.shape,
+  ...workExperienceSchema.shape,
 });
 
 // Omit removes the photo field from the original schema
