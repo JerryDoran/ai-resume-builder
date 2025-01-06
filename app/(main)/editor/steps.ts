@@ -26,4 +26,14 @@ export const steps: {
     component: React.lazy(() => import("./_components/education-form")),
     key: "education",
   },
+  {
+    title: "Skills",
+    component: React.lazy(() => import("./_components/skills-form")),
+    key: "skills",
+  },
+  {
+    title: "Summary",
+    component: React.lazy(() => import("./_components/summary-form")),
+    key: "summary",
+  },
 ];
