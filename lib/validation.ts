@@ -27,6 +27,7 @@ export const personalInfoSchema = z.object({
   lastName: optionalString,
   jobTitle: optionalString,
   city: optionalString,
+  state: optionalString,
   country: optionalString,
   phone: optionalString,
   email: optionalString,
@@ -81,7 +82,6 @@ export const summarySchema = z.object({
 
 export type SummaryValues = z.infer<typeof summarySchema>;
 
-
 // Resume Schema
 export const resumeSchema = z.object({
   ...generalInfoSchema.shape,
@@ -89,8 +89,7 @@ export const resumeSchema = z.object({
   ...workExperienceSchema.shape,
   ...educationSchema.shape,
   ...skillsSchema.shape,
-  ...summarySchema.shape
-  
+  ...summarySchema.shape,
 });
 
 // Omit removes the photo field from the original schema

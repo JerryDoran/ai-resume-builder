@@ -24,6 +24,7 @@ export default function PersonalInfoForm({
       lastName: resumeData.lastName || "",
       jobTitle: resumeData.jobTitle || "",
       city: resumeData.city || "",
+      state: resumeData.state || "",
       country: resumeData.country || "",
       phone: resumeData.phone || "",
       email: resumeData.email || "",
@@ -113,7 +114,7 @@ export default function PersonalInfoForm({
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="flex gap-3">
             <FormField
               control={form.control}
               name="city"
@@ -121,7 +122,20 @@ export default function PersonalInfoForm({
                 <FormItem>
                   <FormLabel>City</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input className="flex-1" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="state"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>State</FormLabel>
+                  <FormControl>
+                    <Input className="w-[100px]" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -134,7 +148,7 @@ export default function PersonalInfoForm({
                 <FormItem>
                   <FormLabel>Country</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input className="w-full" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
