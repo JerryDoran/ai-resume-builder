@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Squircle } from "lucide-react";
+import { Circle, Square, Squircle } from "lucide-react";
 
 export const BorderStyles = {
   SQUARE: "square",
@@ -7,6 +7,7 @@ export const BorderStyles = {
   SQUIRCLE: "squircle",
 };
 
+// will create an array of the string values
 const borderStyles = Object.values(BorderStyles);
 
 type BorderStyleProps = {
@@ -24,13 +25,20 @@ export default function BorderStylePicker({
     onChange(borderStyles[nextIndex]);
   }
 
+  const Icon =
+    borderStyle === "square"
+      ? Square
+      : borderStyle === "round"
+        ? Circle
+        : Squircle;
+
   return (
     <Button
       size="icon"
       title="Change border style"
       onClick={handleBorderStyleChange}
     >
-      <Squircle className="size-5" />
+      <Icon className="size-5" />
     </Button>
   );
 }

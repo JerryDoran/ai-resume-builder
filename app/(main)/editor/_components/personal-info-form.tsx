@@ -10,8 +10,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { personalInfoSchema, PersonalInfoValues } from "@/lib/validation";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { EditorFormProps } from "@/lib/types";
+import { Button } from "@/components/ui/button";
 
 export default function PersonalInfoForm({
   resumeData,
@@ -43,6 +44,8 @@ export default function PersonalInfoForm({
     return unsubscribe;
   }, [form, resumeData, setResumeData]);
 
+  const imageInputRef = useRef<HTMLInputElement>(null);
+
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="space-y-1.5 text-center">
@@ -58,17 +61,33 @@ export default function PersonalInfoForm({
             render={({ field: { value, ...fieldValues } }) => (
               <FormItem>
                 <FormLabel>Your photo</FormLabel>
-                <FormControl>
-                  <Input
-                    {...fieldValues}
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      fieldValues.onChange(file);
+                <div className="flex items-center gap-2">
+                  <FormControl>
+                    <Input
+                      {...fieldValues}
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        fieldValues.onChange(file);
+                      }}
+                      ref={imageInputRef}
+                    />
+                  </FormControl>
+                  <Button
+                    variant="destructive"
+                    type="button"
+                    onClick={() => {
+                      fieldValues.onChange(null);
+                      if (imageInputRef.current) {
+                        imageInputRef.current.value = "";
+                      }
                     }}
-                  />
-                </FormControl>
+                  >
+                    Remove
+                  </Button>
+                </div>
+
                 <FormMessage />
               </FormItem>
             )}

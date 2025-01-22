@@ -7,6 +7,7 @@ import { ResumeValues } from "@/lib/validation";
 import { useDimensions } from "@/hooks/use-dimensions";
 import { formatDate } from "date-fns";
 import { Badge } from "./ui/badge";
+import { BorderStyles } from "@/app/(main)/editor/_components/border-style-picker";
 
 type ResumePreviewProps = {
   resumeData: ResumeValues;
@@ -63,7 +64,6 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
   } = resumeData;
 
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
-  console.log(colorHex);
 
   useEffect(() => {
     const objectUrl = photo instanceof File ? URL.createObjectURL(photo) : "";
@@ -82,6 +82,14 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
           width={100}
           height={100}
           className="aspect-square object-cover"
+          style={{
+            borderRadius:
+              borderStyle === BorderStyles.SQUARE
+                ? "0px"
+                : borderStyle === BorderStyles.SQUIRCLE
+                  ? "50%"
+                  : "10%",
+          }}
         />
       )}
       <div className="space-y-2.5">
@@ -256,7 +264,7 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 }
 
 function SkillsSection({ resumeData }: ResumeSectionProps) {
-  const { skills, colorHex } = resumeData;
+  const { skills, colorHex, borderStyle } = resumeData;
 
   if (!skills?.length) return null;
 
@@ -279,6 +287,12 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
               className="rounded-md bg-black text-white hover:bg-black/80"
               style={{
                 backgroundColor: colorHex,
+                borderRadius:
+                  borderStyle === BorderStyles.SQUARE
+                    ? "0px"
+                    : borderStyle === BorderStyles.SQUIRCLE
+                      ? "50%"
+                      : "8px",
               }}
             >
               {skill}
